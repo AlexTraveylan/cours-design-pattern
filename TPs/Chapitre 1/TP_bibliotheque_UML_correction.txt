@@ -1,0 +1,77 @@
+@startuml
+
+' Singleton Pattern
+class Bibliothèque {
+  - instance : Bibliothèque
+  - nom : String
+  - adresse : String
+  + getInstance() : Bibliothèque
+  + ajouterLivre(livre: Livre) : void
+  + supprimerLivre(livre: Livre) : void
+  + rechercherLivre(isbn: String) : Livre
+}
+
+' Observer Pattern
+interface Observer {
+  + update() : void
+}
+
+interface Subject {
+  + attach(observer: Observer) : void
+  + detach(observer: Observer) : void
+  + notifyObservers() : void
+}
+
+class Utilisateur implements Observer {
+  - idUtilisateur : String
+  - nom : String
+  - email : String
+  + inscrire() : void
+  + update() : void
+  + emprunterLivre(livre: Livre) : void
+  + retournerLivre(livre: Livre) : void
+}
+
+class Livre implements Subject {
+  - ISBN : String
+  - titre : String
+  - auteur : String
+  - editeur : String
+  - anneePublication : Date
+  - observers: List<Observer>
+  + emprunter() : void
+  + retourner() : void
+  + attach(observer: Observer) : void
+  + detach(observer: Observer) : void
+  + notifyObservers() : void
+}
+
+' Composite Pattern
+abstract class CatalogueComponent {
+  + listerLivres() : List<Livre>
+}
+
+class LivreElement extends CatalogueComponent {
+  - livre : Livre
+  + listerLivres() : List<Livre>
+}
+
+class CatalogueComposite extends CatalogueComponent {
+  - components : List<CatalogueComponent>
+  + add(component: CatalogueComponent) : void
+  + remove(component: CatalogueComponent) : void
+  + listerLivres() : List<Livre>
+}
+
+Bibliothèque "1" o-- "1" CatalogueComposite
+CatalogueComposite "1" -- "0..*" CatalogueComponent
+LivreElement --* Livre
+
+Utilisateur "0..*" o-- "0..*" Livre
+
+' Factory Pattern
+class BookFactory {
+  + createBook(isbn: String, titre: String, auteur: String) : Livre
+}
+
+@enduml

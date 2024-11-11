@@ -1,0 +1,23 @@
+from singleton import Singleton
+
+
+def test_singleton_default_value():
+    # On initialise le singleton sans paramètre
+    ...
+    # On vérifie que la valeur par défaut est 0
+    ...
+
+def test_singleton_set_value():
+    # On initialise le singleton sans paramètre
+    ...
+    # On change la valeur du singleton
+    ...
+    # On vérifie que la valeur a changé
+    ...
+
+def test_singleton_init_value():
+    # On initialise le singleton avec 42
+    ...
+    # On vérifie que la valeur est 42
+    ...
+

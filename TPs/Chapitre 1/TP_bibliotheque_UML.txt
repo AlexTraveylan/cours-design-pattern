@@ -1,0 +1,40 @@
+@startuml
+
+class Livre {
+  - ISBN : String
+  - titre : String
+  - auteur : String
+  - editeur : String
+  - anneePublication : Date
+  + emprunter() : void
+  + retourner() : void
+}
+
+class Utilisateur {
+  - idUtilisateur : String
+  - nom : String
+  - email : String
+  + inscrire() : void
+  + emprunterLivre(livre: Livre) : void
+  + retournerLivre(livre: Livre) : void
+}
+
+class Bibliothèque {
+  - nom : String
+  - adresse : String
+  + ajouterLivre(livre: Livre) : void
+  + supprimerLivre(livre: Livre) : void
+  + rechercherLivre(isbn: String) : Livre
+}
+
+class Catalogue {
+  - listeLivres : List<Livre>
+  + listerLivres() : List<Livre>
+  + rechercherParTitre(titre: String) : List<Livre>
+}
+
+Bibliothèque "1" o-- "1" Catalogue
+Catalogue "1" -- "0..*" Livre
+Utilisateur "0..*" o-- "0..*" Livre
+
+@enduml
