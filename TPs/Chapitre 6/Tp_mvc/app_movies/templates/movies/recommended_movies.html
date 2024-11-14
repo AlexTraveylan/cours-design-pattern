@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Films Recommandés | Ciné Critique{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Films Recommandés pour Vous</h1>
+
+    {% if recommended_movies %}
+    <div class="row">
+        {% for movie in recommended_movies %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ movie.title }}</h5>
+                    <p class="card-text">{{ movie.description|truncatewords:30 }}</p>
+                    <div class="text-muted mb-3">
+                        <small>
+                            Note moyenne : {{ movie.avg_rating|floatformat:1 }}/5
+                            ({{ movie.review_count }} avis)
+                        </small>
+                    </div>
+                    <a href="{% url 'movies:movie_detail' movie.pk %}" class="btn btn-primary">
+                        Voir les détails
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        <h4 class="alert-heading">Pas encore de recommandations !</h4>
+        <p>Pour obtenir des recommandations personnalisées :</p>
+        <ul>
+            <li>Notez plus de films</li>
+            <li>Donnez des notes de 4 ou 5 étoiles aux films que vous aimez</li>
+            <li>Revenez plus tard quand plus d'utilisateurs auront noté des films</li>
+        </ul>
+        <hr>
+        <p class="mb-0">
+            <a href="{% url 'movies:movie_list' %}" class="alert-link">
+                Découvrir tous les films disponibles
+            </a>
+        </p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

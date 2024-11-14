@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ movie.title }}</h1>
+    <p>{{ movie.description }}</p>
+    <p>Date de sortie : {{ movie.release_date }}</p>
+
+    <h2>Critiques</h2>
+    {% for review in reviews %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Note : {{ review.rating }}/5</h5>
+            <p class="card-text">{{ review.comment }}</p>
+            <p class="card-text"><small class="text-muted">
+                    Par {{ review.reviewer.username }} le {{ review.created_at }}
+                </small></p>
+        </div>
+    </div>
+    {% endfor %}
+
+    <a href="{% url 'movies:review_create' movie.pk %}" class="btn btn-primary">
+        Ajouter une critique
+    </a>
+</div>
+{% endblock %}
